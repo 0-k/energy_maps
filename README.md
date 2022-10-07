@@ -1,11 +1,8 @@
-# python-template
+# Energy Maps
 
-Project template in Python
+Mapping energy issues
 
-
-## TODO
-
-* Add todo items here
+Starting with batteries in Germany. Let's see where we get here.
 
 ## Credits
 
