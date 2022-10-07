@@ -110,11 +110,11 @@ ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
+# Spyder energy_maps settings
 .spyderproject
 .spyproject
 
-# Rope project settings
+# Rope energy_maps settings
 .ropeproject
 
 # mkdocs documentation
@@ -130,3 +130,5 @@ dmypy.json
 
 *.idea
 *.DS_Store
+
+*battery_map_germany.html
