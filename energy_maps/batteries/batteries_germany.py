@@ -41,12 +41,13 @@ def prepare_data():
     data = pd.read_csv(tech["filename"], header=0, sep=";", decimal=",", index_col=0)
     data.dropna(subset=["Bundesland"], inplace=True)
     data.dropna(subset=["Koordinate: Breitengrad (WGS84)"], inplace=True)
-    data.dropna(subset=["Koordinate: Breitengrad (WGS84)"], inplace=True)
+    data.dropna(subset=["Koordinate: Längengrad (WGS84)"], inplace=True)
     data = data[~data["Name des Anlagenbetreibers (nur Org.)"].str.contains("natürliche", na=False)]
     data = data[data["Betriebs-Status"] != "Endgültig stillgelegt"]
     data.replace("In Betrieb", "in operation", inplace=True)
     data.replace("In Planung", "in planning", inplace=True)
     data.replace("Vorläufig stillgelegt", "temperarily mothballed", inplace=True)
+    data.sort_values(by="Nettonennleistung der Einheit", ascending=False, inplace=True)
     data['E_to_P'] = data["Nutzbare Speicherkapazität in kWh"] / data["Nettonennleistung der Einheit"]
     return data
 
