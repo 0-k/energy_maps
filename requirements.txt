@@ -1,6 +1,6 @@
 folium
 pandas
-black
 xmltodict
 matplotlib
 requests
+urllib3==1.26.6

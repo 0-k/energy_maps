@@ -3,7 +3,6 @@ import energy_maps.main as main
 
 
 class TestMain(unittest.TestCase):
-
     def setUp(self):
         pass
 

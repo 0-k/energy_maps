@@ -1,7 +1,6 @@
 import folium
 import pandas as pd
 
-
 # data source: Marktstammdatenregister
 # https://www.marktstammdatenregister.de/MaStR/Einheit/Einheiten/ErweiterteOeffentlicheEinheitenuebersicht
 # Lead: "Batterietechnologie entspricht Blei-Batterie" AND "Nettonennleistung der Einheit größer als 950"
@@ -12,7 +11,11 @@ import pandas as pd
 
 
 techs = [
-    {"filename": "./data/storage_heat.csv", "name": "High-temperature", "color": "#a32727"},
+    {
+        "filename": "./data/storage_heat.csv",
+        "name": "High-temperature",
+        "color": "#a32727",
+    },
     {"filename": "./data/storage_lead.csv", "name": "Lead", "color": "#525354"},
     {"filename": "./data/storage_liion.csv", "name": "Li-Ion", "color": "#8541f2"},
 ]
@@ -42,13 +45,20 @@ def prepare_data():
     data.dropna(subset=["Bundesland"], inplace=True)
     data.dropna(subset=["Koordinate: Breitengrad (WGS84)"], inplace=True)
     data.dropna(subset=["Koordinate: Längengrad (WGS84)"], inplace=True)
-    data = data[~data["Name des Anlagenbetreibers (nur Org.)"].str.contains("natürliche", na=False)]
+    data = data[
+        ~data["Name des Anlagenbetreibers (nur Org.)"].str.contains(
+            "natürliche", na=False
+        )
+    ]
     data = data[data["Betriebs-Status"] != "Endgültig stillgelegt"]
     data.replace("In Betrieb", "in operation", inplace=True)
     data.replace("In Planung", "in planning", inplace=True)
     data.replace("Vorläufig stillgelegt", "temperarily mothballed", inplace=True)
     data.sort_values(by="Nettonennleistung der Einheit", ascending=False, inplace=True)
-    data['E_to_P'] = data["Nutzbare Speicherkapazität in kWh"] / data["Nettonennleistung der Einheit"]
+    data["E_to_P"] = (
+        data["Nutzbare Speicherkapazität in kWh"]
+        / data["Nettonennleistung der Einheit"]
+    )
     return data
 
 
@@ -69,7 +79,7 @@ def plot_battery_locations(map):
         ).add_to(map)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     battery_map = folium.Map(location=[51.2, 10], zoom_start=6)
     for tech in techs:
         data = prepare_data()
